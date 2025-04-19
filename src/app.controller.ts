@@ -1,12 +1,30 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Get, Render } from '@nestjs/common';
 
-@Controller()
+@Controller('/pages')
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  @Get('index')
+  @Render('pages/index')
+  getIndex() {
+    return {
+      title: 'Магазин корги - Главная',
+      activePage: 'index',
+      loadTime: Date.now()
+    };
+  }
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('catalog')
+  @Render('pages/catalog')
+  getCatalog() {
+    return {
+      title: 'Каталог корги',
+      activePage: 'catalog',
+      dogs: [
+        {
+          name: 'МариЛевс Грегори Хаус',
+          images: ['gary1.jpg', 'gary2.jpg'],
+          age: 3
+        }
+      ]
+    };
   }
 }

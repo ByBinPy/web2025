@@ -9,16 +9,23 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter(),
   );
+
+  const viewsDir = join(__dirname, '..', 'views');
+  hbs.registerPartials(join(viewsDir, 'partials'));
+  hbs.registerHelper('eq', (a, b) => a === b);
+
   app.useStaticAssets({
     root: join(__dirname, '..', 'public'),
     prefix: '/public/',
   });
+
   app.setViewEngine({
-    engine: {
-      handlebars: require('handlebars'),
-    },
-    templates: join(__dirname, '..', 'views'),
+    engine: { handlebars: hbs },
+    templates: viewsDir,
+    layout: 'layouts/main'
   });
-  await app.listen(process.env.PORT ?? 3000);
+
+  await app.listen(process.env.PORT ?? 3000, '0.0.0.0');
 }
+
 bootstrap();
