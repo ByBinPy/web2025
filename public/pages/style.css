@@ -1,0 +1,453 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f7f2f9;
+    color: #4a4a4a;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background:  #f6b0d4;
+    text-align: center;
+    padding: 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+nav ul li a.active {
+    text-decoration: underline
+}
+
+.cite_logo {
+    width: 150px;
+    position: absolute;
+    left: 20px;
+    top: 15px;
+}
+
+.cute_head {
+    color: #333;
+    font-size: 48px;
+    margin: 0;
+    text-shadow: 4px 4px #ff8ba0;
+}
+
+header div {
+    margin-bottom: 10px;
+    color: #6a6a6a;
+    font-size: 14px;
+}
+header div span {
+    padding: 4px;
+    background-color: white;
+    border-radius: 5px;
+}
+header nav li a {
+    padding: 4px;
+    background-color: white;
+    border-radius: 5px;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #4a4a4a;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+
+main {
+    padding: 20px;
+    background-color: #fff;
+    margin-top: 160px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex-grow: 1;
+}
+
+main h2, main h3 {
+    color: #ff8ba0;
+    font-family: 'Lora', serif;
+}
+
+main div {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+main img {
+    margin: 10px;
+    width: 100%;
+    max-width: 300px;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease;
+}
+
+table {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #ff8ba0;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f7f2f9;
+}
+
+@media screen and (max-width: 1280px) {
+    .cite_logo {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    header div {
+        display: none;
+    }
+
+    nav ul {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        text-align: center;
+    }
+
+    nav ul li {
+        margin: 5px 0;
+    }
+
+    main {
+        margin-top: 350px;
+    }
+
+    main {
+        padding: 10px;
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+    header {
+        padding: 5px;
+    }
+    .small-photo {
+        display: none;
+    }
+
+    .main.art {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+}
+footer {
+    background: #f6b0d4;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    width: 100%;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: auto;
+}
+
+footer p {
+    margin: 5px 0;
+    color: #4a4a4a;
+}
+
+button {
+    background-color: #ff8ba0;
+    color: #fff;
+    border: none;
+    padding: 10px 60px 10px 40px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-image: url('pages/img1/corgi_button.png');
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+section#partners ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap:30px;
+    list-style-type: none;
+    padding: 0;
+    justify-items: center;
+}
+
+section#partners ul li {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 500px;
+    padding: 10px;
+    text-align: center;
+}
+
+
+
+.bookings-table-container {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bookings-table-container h2 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+    display: block; /* Добавлено */
+}
+
+.bookings-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; /* Увеличен отступ */
+    display: table; /* Добавлено */
+    clear: both; /* Добавлено */
+}
+
+.bookings-table th,
+.bookings-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.bookings-table th {
+    background-color: #ff8ba0;
+    color: white;
+    font-weight: 600;
+}
+
+.bookings-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.bookings-table tr:hover {
+    background-color: #f5f5f5;
+}
+
+.bookings-table-container > * {
+    margin-bottom: 15px;
+}
+
+.bookings-table-container > *:last-child {
+    margin-bottom: 0;
+}
+
+.booking-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.booking-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.booking-header h1 {
+    color: #333;
+    font-family: 'Lora', serif;
+    font-size: 36px;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px #ff8ba0;
+}
+
+.booking-header p {
+    color: #6a6a6a;
+    font-size: 16px;
+}
+
+.time-slots {
+    display: grid;
+    padding: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.time-slot {
+    background-color: #f7f2f9;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.time-slot:hover {
+    background-color: #ff8ba0;
+    color: white;
+}
+
+.time-slot.selected {
+    background-color: #f6b0d4;
+    color: white;
+}
+
+.time-slot.booked {
+    background-color: #ddd;
+    cursor: not-allowed;
+    color: #999;
+}
+
+.booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    color: #4a4a4a;
+    font-weight: 600;
+}
+
+.form-group input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #ff8ba0;
+}
+
+.submit-btn {
+    margin-top: 20px;
+    background-color: #ff8ba0;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #f6b0d4;
+}
+
+.clear-storage {
+    margin-top: 20px;
+    background-color: #6a6a6a;
+    width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+    .booking-container {
+        padding: 15px;
+    }
+
+    .booking-header h1 {
+        font-size: 28px;
+    }
+
+    .time-slots {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 10px;
+    }
+}
+
+.preloader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #ff8ba0;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.error-message {
+    text-align: center;
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+}
+
+.slot-thumbnail {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.slot-title {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.time-slot:hover {
+    transform: translateY(-5px);
+}

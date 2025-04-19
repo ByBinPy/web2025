@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бронирование фотосессии</title>
+    <script src="../js/main.js" defer></script>
+    <script src="../js/constructor.js" defer></script>
+    <script src="../js/api.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <img src="img1/logo.png" alt="logo" width="200" class="cite_logo">
+    <h1 class="cute_head">Площадка продажи корги</h1>
+    <div>
+        <span>Москва, ул. Лапушкина, д.5 | Телефон: <a href="моб:+71234567890">+7 (123) 456-78-90</a></span>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="../index.html">О нас</a></li>
+            <li><a href="catalog.html">Каталог корги</a></li>
+            <li><a href="litters.html">Наши пометы</a></li>
+            <li><a href="partners.html" class="active">Наши партнеры</a></li>
+            <li><a href="available_puppies.html">Свободные щенки</a></li>
+            <li><a href="shedule.html">Бронирование фотосессии</a></li>
+        </ul>
+    </nav>
+</header>
+<main>
+    <section id="shedule">
+        <div class="booking-container">
+            <div class="booking-header">
+                <h1>Бронирование фотосессии</h1>
+                <p>Выберите удобное время для вашей собачьей фотосессии</p>
+            </div>
+
+            <div class="time-slots" id="timeSlots">
+            </div>
+
+            <form class="booking-form" id="bookingForm">
+                <div class="form-group">
+                    <label for="name">Ваше имя:</label>
+                    <input type="text" id="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Телефон:</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" required>
+                </div>
+                <button type="submit" class="submit-btn">Забронировать</button>
+            </form>
+            <button class="clear-storage" onclick="clearAllBookings()">Очистить все бронирования</button>
+        </div>
+    </section>
+</main>
+<button id="runAppButton">Получить данные с сервера</button>
+<div id="preloader" style="display: none;"><img src="https://i.gifer.com/ZZ5H.gif" alt="Loading..."></div>
+<div id="content"></div>
+<footer>
+    <p>&copy; 2024 Магазин корги. Все права защищены.</p>
+    <p><em>Формула успеха: Любовь + Забота = Здоровый и счастливый корги!</em></p>
+    <div id="load-time"></div>
+</footer>
+</body>
+</html>

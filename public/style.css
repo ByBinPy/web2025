@@ -1,0 +1,284 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f7f2f9;
+    color: #4a4a4a;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    background:  #f6b0d4;
+    text-align: center;
+    padding: 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+nav ul li a.active {
+    text-decoration: underline
+}
+
+.cite_logo {
+    width: 150px;
+    height: auto;
+    position: absolute;
+    left: 20px;
+    top: 15px;
+}
+
+
+.cute_head {
+    color: #333;
+    font-size: 48px;
+    margin: 0;
+    text-shadow: 4px 4px #ff8ba0;
+}
+
+header div {
+    margin-bottom: 10px;
+    color: #6a6a6a;
+    font-size: 14px;
+}
+header div span {
+    padding: 4px;
+    background-color: white;
+    border-radius: 5px;
+}
+header nav li a {
+    padding: 4px;
+    background-color: white;
+    border-radius: 5px;
+}
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #4a4a4a;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+nav ul li a:hover {
+    color: #ff8ba0;
+}
+
+main {
+    padding: 20px;
+    background-color: #fff;
+    margin-top: 160px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex-grow: 1;
+}
+
+main h2, main h3 {
+    color: #ff8ba0;
+    font-family: 'Lora', serif;
+}
+
+main div {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+main img {
+    margin: 10px;
+    width: 100%;
+    max-width: 300px;
+    height: 200px; /* Установите явную высоту */
+    object-fit: cover; /* Или contain в зависимости от желаемого эффекта */
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease;
+}
+
+main img:hover {
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
+}
+
+table {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #ff8ba0;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f7f2f9;
+}
+
+@media screen and (max-width: 1280px) {
+    .cite_logo {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    header div {
+        display: none;
+    }
+
+    nav ul {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        text-align: center;
+    }
+
+    nav ul li {
+        margin: 5px 0;
+    }
+
+    main {
+        margin-top: 350px;
+    }
+
+    main {
+        padding: 10px;
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+    .small-photo {
+        display: none;
+    }
+
+    .main.art {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+}
+footer {
+    background: #f6b0d4;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    width: 100%;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: auto;
+}
+
+footer p {
+    margin: 5px 0;
+    color: #4a4a4a;
+}
+
+button {
+    background-color: #ff8ba0;
+    color: #fff;
+    border: none;
+    padding: 10px 60px 10px 40px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-image: url('pages/img1/corgi_button.png');
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+section#partners ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 2fr));
+    gap: 20px;
+    list-style-type: none;
+    padding: 0;
+    justify-items: center;
+}
+
+section#partners ul li {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 100px;
+}
+.main.art {
+    display: grid;
+    grid-template-columns: 3fr 3fr;
+    gap: 5px;
+}
+
+.tall-photo {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.small-photo {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+.main.art img {
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+
+.swiper-container {
+    width: 80%;
+    max-width: 800px;
+    height: 400px;
+    margin: 20px auto;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.swiper-slide img {
+    width: 80%;
+    height: 80%;
+    object-fit: scale-down;
+    border-radius: 10px;
+}
+
+
+.swiper-slide img:hover {
+    box-shadow: none;
+}
+.swiper-slide img {
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+}
