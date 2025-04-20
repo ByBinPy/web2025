@@ -1,31 +1,45 @@
-
 import { NestFactory } from '@nestjs/core';
-import { NestFastifyApplication, FastifyAdapter } from '@nestjs/platform-fastify';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
+import * as exphbs from 'express-handlebars';
 import { join } from 'path';
+import Handlebars from 'handlebars';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestFastifyApplication>(
-    AppModule,
-    new FastifyAdapter(),
+  // Создаем приложение на базе NestExpressApplication
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  // Регистрируем кастомный helper 'eq'
+  Handlebars.registerHelper('eq', function (a: any, b: any, options: any) {
+    if (arguments.length !== 3) {
+      throw new Error("Helper 'eq' requires two arguments");
+    }
+    return a === b ? options.fn(this) : () => {}
+  });
+
+  // Настраиваем express-handlebars как view engine
+  app.engine('hbs', exphbs.engine({
+    extname: '.hbs',
+    defaultLayout: 'main',
+    layoutsDir: join(__dirname, '..', 'views', 'layouts'),
+    partialsDir: [
+      join(__dirname, '..', 'views', 'partials'),
+      join(__dirname, '..', 'views', 'pages'),
+    ],
+    handlebars: Handlebars,
+  }));
+
+  app.setViewEngine('hbs');
+  app.setBaseViewsDir(join(__dirname, '..', 'views'));
+
+  // Подключаем статические файлы
+  app.useStaticAssets(
+    join(__dirname, '..', 'public'),
+    { prefix: '/public/' }
   );
 
-  const viewsDir = join(__dirname, '..', 'views');
-  hbs.registerPartials(join(viewsDir, 'partials'));
-  hbs.registerHelper('eq', (a, b) => a === b);
-
-  app.useStaticAssets({
-    root: join(__dirname, '..', 'public'),
-    prefix: '/public/',
-  });
-
-  app.setViewEngine({
-    engine: { handlebars: hbs },
-    templates: viewsDir,
-    layout: 'layouts/main'
-  });
-
-  await app.listen(process.env.PORT ?? 3000, '0.0.0.0');
+  // Запускаем сервер
+  await app.listen(process.env.PORT ?? 3000);
 }
 
 bootstrap();

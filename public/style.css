@@ -282,3 +282,35 @@ section#partners ul li {
     height: 80%;
     object-fit: cover;
 }
+
+.swiper-container {
+    position: relative;
+    width: 80%;
+    max-width: 800px;
+    height: 400px;
+    margin: 20px auto;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.swiper-pagination {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 10;
+}
+
+.swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    margin: 0 6px;
+    background: rgba(255, 255, 255, 0.8);
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+    background: #ff8ba0;
+}

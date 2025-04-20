@@ -5,11 +5,7 @@ export class AppController {
   @Get('index')
   @Render('pages/index')
   getIndex() {
-    return {
-      title: 'Магазин корги - Главная',
-      activePage: 'index',
-      loadTime: Date.now()
-    };
+
   }
 
   @Get('catalog')
