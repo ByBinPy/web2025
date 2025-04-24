@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Lora:ital,wght@0,400;0,600;1,400&display=swap');
+@import '@splidejs/splide/dist/css/splide.min.css';
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #f7f2f9;
@@ -249,68 +250,85 @@ section#partners ul li {
     border-radius: 8px;
 }
 
-
-.swiper-container {
+.splide {
     width: 80%;
     max-width: 800px;
-    height: 400px;
     margin: 20px auto;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.swiper-slide {
+.splide__slide {
     display: flex;
     align-items: center;
     justify-content: center;
+    background: #fff;
 }
 
-.swiper-slide img {
-    width: 80%;
-    height: 80%;
-    object-fit: scale-down;
-    border-radius: 10px;
-}
-
-
-.swiper-slide img:hover {
-    box-shadow: none;
-}
-.swiper-slide img {
+.splide__slide img {
     width: 80%;
     height: 80%;
     object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
 }
 
-.swiper-container {
-    position: relative;
-    width: 80%;
-    max-width: 800px;
-    height: 400px;
-    margin: 20px auto;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.swiper-pagination {
+.splide__arrows {
     position: absolute;
-    bottom: 15px;
-    left: 0;
-    right: 0;
-    text-align: center;
-    z-index: 10;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
 }
 
-.swiper-pagination-bullet {
-    width: 10px;
-    height: 10px;
-    margin: 0 6px;
-    background: rgba(255, 255, 255, 0.8);
-    opacity: 1;
-}
-
-.swiper-pagination-bullet-active {
+.splide__arrow {
     background: #ff8ba0;
+    opacity: 0.8;
+    width: 40px;
+    height: 40px;
+}
+
+.splide__arrow:hover {
+    opacity: 1;
+    background: #ff4060;
+}
+
+.splide__pagination {
+    bottom: -20px;
+}
+
+.splide__pagination__page {
+    background: #ff8ba0;
+    opacity: 0.5;
+    width: 12px;
+    height: 12px;
+    margin: 0 8px;
+}
+
+.splide__pagination__page.is-active {
+    opacity: 1;
+    transform: scale(1.2);
+    background: #ff4060;
+}
+
+.splide__progress__bar {
+    background: #ff8ba0;
+    height: 3px;
+}
+
+.splide__track {
+    overflow: visible ;
+}
+
+.splide__list {
+    display: flex ;
+    flex-direction: row ;
+    margin: 0 ;
+    padding: 0 ;
+}
+
+.splide__slide {
+    list-style: none ;
+    flex-shrink: 0;
+    width: 100% ;
 }

@@ -130,23 +130,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     loadButton.addEventListener('click', loadData);
 });
-document.addEventListener('DOMContentLoaded', function () {
-    const swiper = new Swiper('.swiper-container', {
-        loop: true, // Зацикливание слайдов
-        autoplay: {
-            delay: 3000, // Автопрокрутка каждые 3 секунды
-        },
-        pagination: {
-            el: '.swiper-pagination', // Элемент для пагинации
-            clickable: true, // Делаем точки кликабельными
-        },
-        navigation: {
-            nextEl: '.swiper-button-next', // Кнопка вперед
-            prevEl: '.swiper-button-prev', // Кнопка назад
-        },
-        slidesPerView: 1,
-        spaceBetween: 10,
-        effect: 'slide', // Эффект перехода (slide, fade, cube, coverflow)
-    });
+document.addEventListener('DOMContentLoaded', () => {
+  new Splide('.splide', {
+    type: 'loop',
+    perPage: 1,
+    perMove: 1,
+    gap: '20px',
+    arrows: true,
+    autoplay: true,
+    autoplayTimeout: 1000,
+    pagination: false,
+    speed: 600,
+    breakpoints: {
+      768: {
+        arrows: false,
+        perPage: 1
+      }
+    },
+    classes: {
+      arrows: 'splide__arrows your-arrow-class',
+      arrow: 'splide__arrow your-arrow',
+      prev: 'splide__arrow--prev your-prev',
+      next: 'splide__arrow--next your-next'
+    }
+  }).mount();
 });
-
