@@ -137,10 +137,14 @@ document.addEventListener('DOMContentLoaded', () => {
     perMove: 1,
     gap: '20px',
     arrows: true,
-    autoplay: true,
-    autoplayTimeout: 1000,
     pagination: false,
     speed: 600,
+
+    autoplay: true,
+    interval: 3000,
+    pauseOnHover: false,
+    pauseOnFocus: false,
+
     breakpoints: {
       768: {
         arrows: false,

@@ -1,0 +1,20 @@
+{{! catalog.hbs }}
+<section id="catalog">
+  <h2>{{title}}</h2>
+  {{#each dogs}}
+    <article>
+      <h3>{{this.name}}</h3>
+      <div class="dog-images">
+        {{#each this.images}}
+          <img
+            src="../../public/pages/img1/{{this.image}}"
+            width="{{this.image_with}}"
+            height="{{this.image_height}}"
+            alt="{{../name}} photo {{@index}}"
+          >
+        {{/each}}
+      </div>
+      <p>Возраст: {{this.age}} {{pluralize this.age 'год' 'года' 'лет'}}</p>
+    </article>
+  {{/each}}
+</section>

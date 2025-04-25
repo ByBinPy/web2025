@@ -1,0 +1,13 @@
+<section id="available_puppies">
+  <h2>{{title}}</h2>
+  {{#each puppies}}
+    <article>
+      <button onclick="alert('Щенок {{this.name}} забронирован!')">Забронировать</button>
+      <img src="../../public/pages/img1/{{this.image}}" alt="{{this.name}}" width="300" height="200">
+      <h3>{{this.name}}</h3>
+      <p>Возраст: {{this.age}}</p>
+      <p>Описание: {{this.description}}</p>
+      <p>Цена: {{this.price}}</p>
+    </article>
+  {{/each}}
+</section>

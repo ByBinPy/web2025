@@ -1,0 +1,13 @@
+<section id="litters">
+  <h2>{{title}}</h2>
+  {{#each litters}}
+    <article>
+      <h3>{{this.title}}</h3>
+      <div>
+        {{#each this.images}}
+          <img src="../../{{this}}" alt="Помет" width="300">
+        {{/each}}
+      </div>
+    </article>
+  {{/each}}
+</section>

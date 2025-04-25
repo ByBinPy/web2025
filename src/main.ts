@@ -15,6 +15,15 @@ async function bootstrap() {
     return a === b ? options.fn(this) : () => {}
   });
 
+  Handlebars.registerHelper('pluralize', function(number, ...forms) {
+    number = Math.abs(number) % 100;
+    let n = number % 10;
+    if (number > 10 && number < 20) return forms[2];
+    if (n > 1 && n < 5) return forms[1];
+    if (n === 1) return forms[0];
+    return forms[2];
+  })
+
   app.engine('hbs', exphbs.engine({
     extname: '.hbs',
     defaultLayout: 'main',

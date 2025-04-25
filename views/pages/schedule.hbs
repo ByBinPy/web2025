@@ -1,0 +1,32 @@
+<section id="schedule">
+  <div class="booking-container">
+    <section id="shedule">
+      <div class="booking-container">
+        <div class="booking-header">
+          <h1>Бронирование фотосессии</h1>
+          <p>Выберите удобное время для вашей собачьей фотосессии</p>
+        </div>
+
+        <div class="time-slots" id="timeSlots">
+        </div>
+
+        <form class="booking-form" id="bookingForm">
+          <div class="form-group">
+            <label for="name">Ваше имя:</label>
+            <input type="text" id="name" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Телефон:</label>
+            <input type="tel" id="phone" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+          </div>
+          <button type="submit" class="submit-btn">Забронировать</button>
+        </form>
+        <button class="clear-storage" onclick="clearAllBookings()">Очистить все бронирования</button>
+      </div>
+    </section>
+  </div>
+</section>

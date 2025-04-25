@@ -1,0 +1,11 @@
+<section id="partners">
+  <h2>{{title}}</h2>
+  <p>Мы работаем только с проверенными партнерами, которые разделяют наши принципы заботы о животных и качественного обслуживания клиентов.</p>
+  <ul>
+    {{#each partners}}
+    <li>
+        <strong>{{this.name}}</strong> - {{this.description}} <a href="{{this.link}}" target="_blank">Посетить сайт</a>
+    </li>
+    {{/each}}
+  </ul>
+</section>

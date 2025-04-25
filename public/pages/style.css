@@ -196,7 +196,7 @@ button {
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    background-image: url('pages/img1/corgi_button.png');
+    background-image: url('img1/corgi_button.png');
     background-size: 30px 30px;
     background-repeat: no-repeat;
     background-position: right 10px center;
@@ -235,15 +235,15 @@ section#partners ul li {
     color: #333;
     margin-bottom: 20px;
     text-align: center;
-    display: block; /* Добавлено */
+    display: block;
 }
 
 .bookings-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px; /* Увеличен отступ */
-    display: table; /* Добавлено */
-    clear: both; /* Добавлено */
+    margin-top: 20px;
+    display: table;
+    clear: both;
 }
 
 .bookings-table th,

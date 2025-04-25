@@ -1,10 +1,11 @@
 <nav>
   <ul>
-    <li><a href="/" class="{{#if (eq active 'index')}}active{{/if}}">О нас</a></li>
-    <li><a href="/catalog" class="{{#if (eq active 'catalog')}}active{{/if}}">Каталог корги</a></li>
-    <li><a href="/litters" class="{{#if (eq active 'litters')}}active{{/if}}">Наши пометы</a></li>
-    <li><a href="/partners" class="{{#if (eq active 'partners')}}active{{/if}}">Наши партнеры</a></li>
-    <li><a href="/available-puppies" class="{{#if (eq active 'available-puppies')}}active{{/if}}">Свободные щенки</a></li>
-    <li><a href="/schedule" class="{{#if (eq active 'schedule')}}active{{/if}}">Бронирование фотосессии</a></li>
+    {{#each menu}}
+      <li>
+        <a href="{{this.path}}" {{#if (eq ../activePage this.title)}}class="active"{{/if}}>
+          {{this.title}}
+        </a>
+      </li>
+    {{/each}}
   </ul>
 </nav>
