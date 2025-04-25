@@ -1,4 +1,4 @@
-import { Controller, Get, Redirect, Render } from '@nestjs/common';
+import { Controller, Get, Render } from '@nestjs/common';
 
 @Controller()
 export class AppController {
@@ -9,7 +9,7 @@ export class AppController {
       phone: '+7 (123) 456-78-90',
     },
     menu: [
-      { path: '/index', title: 'О нас' },
+      { path: '/', title: 'О нас' },
       { path: '/catalog', title: 'Каталог корги' },
       { path: '/litters', title: 'Наши пометы' },
       { path: '/partners', title: 'Наши партнеры' },
@@ -17,8 +17,7 @@ export class AppController {
       { path: '/schedule', title: 'Бронирование фотосессии' },
     ],
   };
-
-  @Get("index")
+  @Get()
   @Render('pages/index')
   getIndex() {
     return {
@@ -26,12 +25,6 @@ export class AppController {
       title: 'О нас',
       activePage: 'index',
     };
-  }
-
-  @Get()
-  @Redirect('/index', 301)
-  redirectToIndex() {
-    return { url: '/index' };
   }
 
   @Get('catalog')
