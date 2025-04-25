@@ -1,6 +1,6 @@
 import { Controller, Get, Render } from '@nestjs/common';
 
-@Controller('/pages')
+@Controller()
 export class AppController {
   private commonData = {
     siteName: 'Площадка продажи корги',
@@ -17,6 +17,16 @@ export class AppController {
       { path: '/pages/schedule', title: 'Бронирование фотосессии' },
     ],
   };
+
+  @Get()
+  @Render('pages/index')
+  getFirst() {
+    return {
+      ...this.commonData,
+      title: 'О нас',
+      activePage: 'index',
+    };
+  }
 
   @Get('index')
   @Render('pages/index')
