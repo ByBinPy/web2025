@@ -1,4 +1,13 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Render,
+  Post,
+  Body,
+  Session,
+  Res,
+} from '@nestjs/common';
+import { Response } from 'express';
 
 @Controller()
 export class AppController {
@@ -15,13 +24,55 @@ export class AppController {
       { path: '/partners', title: 'Наши партнеры' },
       { path: '/available_puppies', title: 'Свободные щенки' },
       { path: '/schedule', title: 'Бронирование фотосессии' },
+      { path: '/login', title: 'Вход' },
     ],
   };
-  @Get()
-  @Render('pages/index')
-  getIndex() {
+
+  @Get('login')
+  @Render('pages/login')
+  getLogin() {
     return {
       ...this.commonData,
+      title: 'Вход',
+      activePage: null,
+    };
+  }
+
+  @Post('/login')
+  login(
+    @Body() body: { email: string; password: string },
+    @Session() session: Record<string, any>,
+    @Res() res: Response,
+  ) {
+    session.isAuthenticated = true;
+    session.userName = body.email;
+    return res.redirect('/');
+  }
+
+  @Post('/register')
+  async register(
+    @Body() body: { email: string; password: string },
+    @Session() session: Record<string, any>,
+    @Res() res: Response,
+  ) {
+    session.isAuthenticated = true;
+    session.userName = body.email;
+    return res.redirect('/');
+  }
+
+  @Get('/logout')
+  logout(@Session() session: Record<string, any>, @Res() res: Response) {
+    session.destroy(() => null);
+    return res.redirect('/');
+  }
+
+  @Get(['/', '/index'])
+  @Render('pages/index')
+  getIndex(@Session() session: Record<string, any>) {
+    return {
+      ...this.commonData,
+      isAuthenticated: session.isAuthenticated || false,
+      userName: session.userName || null,
       title: 'О нас',
       activePage: 'index',
     };
@@ -29,9 +80,11 @@ export class AppController {
 
   @Get('catalog')
   @Render('pages/catalog')
-  getCatalog() {
+  getCatalog(@Session() session: Record<string, any>) {
     return {
       ...this.commonData,
+      isAuthenticated: session.isAuthenticated || false,
+      userName: session.userName || null,
       title: 'Каталог корги',
       activePage: 'catalog',
 
@@ -90,9 +143,11 @@ export class AppController {
 
   @Get('available_puppies')
   @Render('pages/available-puppies')
-  getAvailablePuppies() {
+  getAvailablePuppies(@Session() session: Record<string, any>) {
     return {
       ...this.commonData,
+      isAuthenticated: session.isAuthenticated || false,
+      userName: session.userName || null,
       title: 'Свободные щенки',
       activePage: 'available_puppies',
       puppies: [
@@ -125,9 +180,11 @@ export class AppController {
 
   @Get('litters')
   @Render('pages/litters')
-  getLitters() {
+  getLitters(@Session() session: Record<string, any>) {
     return {
       ...this.commonData,
+      isAuthenticated: session.isAuthenticated || false,
+      userName: session.userName || null,
       title: 'Наши пометы',
       activePage: 'litters',
       litters: [
@@ -151,9 +208,11 @@ export class AppController {
 
   @Get('partners')
   @Render('pages/partners')
-  getPartners() {
+  getPartners(@Session() session: Record<string, any>) {
     return {
       ...this.commonData,
+      isAuthenticated: session.isAuthenticated || false,
+      userName: session.userName || null,
       title: 'Наши партнеры',
       activePage: 'partners',
       partners: [
@@ -181,11 +240,23 @@ export class AppController {
 
   @Get('schedule')
   @Render('pages/schedule')
-  getSchedule() {
+  getSchedule(@Session() session: Record<string, any>) {
     return {
       ...this.commonData,
+      isAuthenticated: session.isAuthenticated || false,
+      userName: session.userName || null,
       title: 'Бронирование фотосессии',
       activePage: 'schedule',
+    };
+  }
+
+  @Get('register')
+  @Render('pages/register')
+  getRegister() {
+    return {
+      ...this.commonData,
+      title: 'Регистрация',
+      activePage: null,
     };
   }
 }

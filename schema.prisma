@@ -1,0 +1,53 @@
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://dpg-d05nq1ili9vc7390djl0-a.oregon-postgres.render.com/prod_c8si"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id              String  @id @default(uuid())
+  email           String  @unique
+  name            String
+  role            Role    @default(GUEST)
+  reservedPuppies Pappy[] @relation("UserPuppies")
+}
+
+model Pappy {
+  id       String  @id @default(uuid())
+  owner    User?   @relation("UserPuppies", fields: [ownerId], references: [id])
+  ownerId  String?
+  nickname String  @unique
+  brand    String  @unique
+  litter   Litter  @relation(fields: [litterId], references: [id])
+  litterId String
+}
+
+model Photosession {
+  id       String   @id @default(uuid())
+  timeSlot DateTime
+  user     User?    @relation(fields: [userId], references: [id])
+  userId   String?
+}
+
+model Litter {
+  id             String @id @default(uuid())
+  femaleParent   Corgi  @relation("FemaleParent", fields: [femaleParentId], references: [id])
+  femaleParentId String
+  maleParent     Corgi  @relation("MaleParent", fields: [maleParentId], references: [id])
+  maleParentId   String
+}
+
+model Corgi {
+  id          String   @id @default(uuid())
+  nickname    String   @unique
+  brand       String   @unique
+  dateOfBirth DateTime
+}
+
+enum Role {
+  GUEST
+  ADMIN
+}

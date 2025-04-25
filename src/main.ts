@@ -4,9 +4,22 @@ import { AppModule } from './app.module';
 import * as exphbs from 'express-handlebars';
 import { join } from 'path';
 import Handlebars from 'handlebars';
+import session from 'express-session'
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  app.use(
+    session({
+      secret: 'надежный-secret))',
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+        maxAge: 3600000,
+        httpOnly: true
+      },
+    }),
+  );
 
   Handlebars.registerHelper('eq', function (a: any, b: any, options: any) {
     if (arguments.length !== 3) {
