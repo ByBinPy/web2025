@@ -1,6 +1,6 @@
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://dpg-d05nq1ili9vc7390djl0-a.oregon-postgres.render.com/prod_c8si"
+  url      = "postgresql://dev:Z2aeidgQbR3z3JmCYacn000fBtqyx3tO@dpg-d05nq1ili9vc7390djl0-a.oregon-postgres.render.com/prod_c8si"
 }
 
 generator client {
@@ -8,11 +8,12 @@ generator client {
 }
 
 model User {
-  id              String  @id @default(uuid())
-  email           String  @unique
+  id              String         @id @default(uuid())
+  email           String         @unique
   name            String
-  role            Role    @default(GUEST)
-  reservedPuppies Pappy[] @relation("UserPuppies")
+  role            Role           @default(GUEST)
+  reservedPuppies Pappy[]        @relation("UserPuppies")
+  photosessions   Photosession[] // Обратная связь к Photosession
 }
 
 model Pappy {
@@ -33,11 +34,12 @@ model Photosession {
 }
 
 model Litter {
-  id             String @id @default(uuid())
-  femaleParent   Corgi  @relation("FemaleParent", fields: [femaleParentId], references: [id])
+  id             String  @id @default(uuid())
+  femaleParent   Corgi   @relation("FemaleParent", fields: [femaleParentId], references: [id])
   femaleParentId String
-  maleParent     Corgi  @relation("MaleParent", fields: [maleParentId], references: [id])
+  maleParent     Corgi   @relation("MaleParent", fields: [maleParentId], references: [id])
   maleParentId   String
+  puppies        Pappy[]
 }
 
 model Corgi {
@@ -45,6 +47,8 @@ model Corgi {
   nickname    String   @unique
   brand       String   @unique
   dateOfBirth DateTime
+  asFemale    Litter[] @relation("FemaleParent")
+  asMale      Litter[] @relation("MaleParent")
 }
 
 enum Role {
