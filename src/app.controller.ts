@@ -1,4 +1,4 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get, Redirect, Render } from '@nestjs/common';
 
 @Controller()
 export class AppController {
@@ -28,14 +28,10 @@ export class AppController {
     };
   }
 
-  @Get('index')
-  @Render('pages/index')
-  getIndex() {
-    return {
-      ...this.commonData,
-      title: 'О нас',
-      activePage: 'index',
-    };
+  @Get()
+  @Redirect('/pages/index', 301)
+  redirectToIndex() {
+    return { url: '/pages/index' };
   }
 
   @Get('catalog')
