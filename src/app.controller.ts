@@ -9,18 +9,18 @@ export class AppController {
       phone: '+7 (123) 456-78-90',
     },
     menu: [
-      { path: '/pages/index', title: 'О нас' },
-      { path: '/pages/catalog', title: 'Каталог корги' },
-      { path: '/pages/litters', title: 'Наши пометы' },
-      { path: '/pages/partners', title: 'Наши партнеры' },
-      { path: '/pages/available_puppies', title: 'Свободные щенки' },
-      { path: '/pages/schedule', title: 'Бронирование фотосессии' },
+      { path: '/index', title: 'О нас' },
+      { path: '/catalog', title: 'Каталог корги' },
+      { path: '/litters', title: 'Наши пометы' },
+      { path: '/partners', title: 'Наши партнеры' },
+      { path: '/available_puppies', title: 'Свободные щенки' },
+      { path: '/schedule', title: 'Бронирование фотосессии' },
     ],
   };
 
-  @Get()
+  @Get("index")
   @Render('pages/index')
-  getFirst() {
+  getIndex() {
     return {
       ...this.commonData,
       title: 'О нас',
@@ -29,9 +29,9 @@ export class AppController {
   }
 
   @Get()
-  @Redirect('/pages/index', 301)
+  @Redirect('/index', 301)
   redirectToIndex() {
-    return { url: '/pages/index' };
+    return { url: '/index' };
   }
 
   @Get('catalog')
