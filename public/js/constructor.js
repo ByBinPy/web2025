@@ -1,3 +1,20 @@
+const bookingsEventSource = new EventSource('/photosession/loadPhotosessions', { withCredentials: true });
+let selectedSlotId = null;
+let currentBookings = [];
+
+window.selectSlot = function(slotId) {
+  const slot = initialSlots.find(s => s.id === slotId);
+  const isBooked = currentBookings.some(b =>
+    b.date === slot.date &&
+    b.time === slot.time
+  );
+
+  if (!isBooked) {
+    selectedSlotId = slotId;
+    renderTimeSlots();
+  }
+};
+
 const initialSlots = [
     {id: 1, time: '10:00', date: '2024-12-20'},
     {id: 2, time: '11:00', date: '2024-12-20'},
@@ -10,67 +27,61 @@ const initialSlots = [
     {id: 9, time: '12:00', date: '2024-12-21'},
 ];
 
-let selectedSlotId = null;
 
-if (!localStorage.getItem('availableSlots')) {
-    localStorage.setItem('availableSlots', JSON.stringify(initialSlots));
+async function renderTimeSlots() {
+  const container = document.getElementById('timeSlots');
+  const slots = await initialSlots;
+  const bookings = window.currentBookings || [];
+
+  container.innerHTML = slots.map(slot => {
+    const isBooked = bookings.some(b =>
+      b.date === slot.date &&
+      b.time === slot.time
+    );
+
+    return `
+      <div class="time-slot 
+        ${isBooked ? 'booked' : ''} 
+        ${selectedSlotId === slot.id ? 'selected' : ''}"
+        data-id="${slot.id}"
+        onclick="${!isBooked ? `selectSlot(${slot.id})` : ''}">
+        <div>${slot.date}</div>
+        <div>${slot.time}</div>
+      </div>
+    `;
+  }).join('');
 }
-if (!localStorage.getItem('bookedSlots')) {
-    localStorage.setItem('bookedSlots', JSON.stringify([]));
-}
+bookingsEventSource.onerror = (err) => {
+  console.error('SSE Connection Error:', err);
+  bookingsEventSource.close();
+  setTimeout(() => {
+    new EventSource('/photosession/loadPhotosessions');
+  }, 5000);
+};
 
-function getAvailableSlots() {
-    return JSON.parse(localStorage.getItem('availableSlots'));
-}
+bookingsEventSource.onmessage = (event) => {
+  try {
+    const data = JSON.parse(event.data);
+    console.log('SSE Data Received:', data);
 
-function getBookedSlots() {
-    return JSON.parse(localStorage.getItem('bookedSlots'));
-}
-
-function isSlotBooked(slotId) {
-    const bookedSlots = getBookedSlots();
-    return bookedSlots.some(booking => booking.slotId === slotId);
-}
-
-function renderTimeSlots() {
-    const container = document.getElementById('timeSlots');
-    container.innerHTML = '';
-    const availableSlots = getAvailableSlots();
-
-    availableSlots.forEach(slot => {
-        const slotElement = document.createElement('div');
-        const isBooked = isSlotBooked(slot.id);
-
-        slotElement.className = `time-slot ${isBooked ? 'booked' : ''} ${selectedSlotId === slot.id ? 'selected' : ''}`;
-        slotElement.innerHTML = `
-            <div>${slot.date}</div>
-            <div>&nbsp</div>
-            <div>${slot.time}</div>
-        `;
-
-        if (!isBooked) {
-            slotElement.addEventListener('click', () => selectSlot(slot.id));
-        }
-
-        container.appendChild(slotElement);
-    });
-
-    renderBookingsTable();
-}
-
-function renderBookingsTable() {
-    const tableContainer = document.getElementById('bookingsTable');
-    if (!tableContainer) {
-        const container = document.createElement('div');
-        container.id = 'bookingsTable';
-        container.className = 'bookings-table-container';
-        document.querySelector('.booking-container').appendChild(container);
+    if (data?.data && Array.isArray(data.data)) {
+      currentBookings = data.data;
+      renderBookingsTable(data.data);
+      updateSlotAvailability(data.data);
+      renderTimeSlots();
     }
+  } catch (error) {
+    console.error('SSE Parse Error:', error);
+  }
+};
+function renderBookingsTable(bookings) {
+  const container = document.getElementById('bookingsTable');
+  if (!container) {
+    console.error('bookingsTable element not found');
+    return;
+  }
 
-    const bookedSlots = getBookedSlots();
-    const availableSlots = getAvailableSlots();
-
-    const tableHTML = `
+  container.innerHTML = bookings.length ? `
         <h2>Забронированные фотосессии</h2>
         <table class="bookings-table">
             <thead>
@@ -83,67 +94,38 @@ function renderBookingsTable() {
                 </tr>
             </thead>
             <tbody>
-                ${bookedSlots.map(booking => {
-        const slot = availableSlots.find(s => s.id === booking.slotId);
-        return `
-                        <tr>
-                            <td>${slot.date}</td>
-                            <td>${slot.time}</td>
-                            <td>${booking.name}</td>
-                            <td>${booking.phone}</td>
-                            <td>${booking.email}</td>
-                        </tr>
-                    `;
-    }).join('')}
+                ${bookings.map(b => `
+                    <tr>
+                        <td>${b.date}</td>
+                        <td>${b.time}</td>
+                        <td>${b.name}</td>
+                        <td>${b.phone}</td>
+                        <td>${b.email}</td>
+                    </tr>
+                `).join('')}
             </tbody>
         </table>
-    `;
-
-    document.getElementById('bookingsTable').innerHTML = bookedSlots.length ? tableHTML : '<p>Нет забронированных фотосессий</p>';
+    ` : '<p>Нет бронирований</p>';
 }
 
-function selectSlot(slotId) {
-    selectedSlotId = slotId;
-    renderTimeSlots();
+function updateSlotAvailability(bookings) {
+  document.querySelectorAll('.time-slot').forEach(slot => {
+    const slotDate = slot.querySelector('div:first-child').textContent;
+    const slotTime = slot.querySelector('div:last-child').textContent;
+    const isBooked = bookings.some(b =>
+      b.date === slotDate &&
+      b.time === slotTime
+    );
+    slot.classList.toggle('booked', isBooked);
+  });
 }
 
-function saveBooking(formData) {
-    const bookedSlots = getBookedSlots();
-    bookedSlots.push({
-        slotId: selectedSlotId,
-        name: formData.name,
-        phone: formData.phone,
-        email: formData.email,
-        bookingTime: new Date().toISOString()
-    });
-    localStorage.setItem('bookedSlots', JSON.stringify(bookedSlots));
-}
-
-function clearAllBookings() {
-    if (confirm('Вы уверены, что хотите очистить все бронирования?')) {
-        localStorage.setItem('bookedSlots', JSON.stringify([]));
-        selectedSlotId = null;
-        renderTimeSlots();
-    }
-}
-
-document.getElementById('bookingForm').addEventListener('submit', function (e) {
-    e.preventDefault();
-    if (!selectedSlotId) {
-        alert('Пожалуйста, выберите время для бронирования');
-        return;
-    }
-
-    const formData = {
-        name: document.getElementById('name').value,
-        phone: document.getElementById('phone').value,
-        email: document.getElementById('email').value
-    };
-
-    saveBooking(formData);
-    this.reset();
-    selectedSlotId = null;
-    renderTimeSlots();
+document.addEventListener('DOMContentLoaded', () => {
+  if (!document.getElementById('bookingsTable')) {
+    const container = document.createElement('div');
+    container.id = 'bookingsTable';
+    document.querySelector('.booking-container').appendChild(container);
+  }
 });
 
 renderTimeSlots();

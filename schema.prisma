@@ -1,6 +1,6 @@
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://dev:Z2aeidgQbR3z3JmCYacn000fBtqyx3tO@dpg-d05nq1ili9vc7390djl0-a.oregon-postgres.render.com/prod_c8si"
+  url      = "postgresql://dev:NL2eIWvkK0WqwhpcugU3deMTTQj6e5yT@dpg-d069lshr0fns73fd4h7g-a.oregon-postgres.render.com/prod_2red"
 }
 
 generator client {
@@ -8,15 +8,16 @@ generator client {
 }
 
 model User {
-  id              String         @id @default(uuid())
-  email           String         @unique
+  id              String          @id @default(uuid())
+  email           String          @unique
   name            String
-  role            Role           @default(GUEST)
-  reservedPuppies Pappy[]        @relation("UserPuppies")
-  photosessions   Photosession[] // Обратная связь к Photosession
+  password        String
+  role            Role            @default(GUEST)
+  reservedPuppies Puppy[]        @relation("UserPuppies")
+  photosessions   Photosession[]
 }
 
-model Pappy {
+model Puppy {
   id       String  @id @default(uuid())
   owner    User?   @relation("UserPuppies", fields: [ownerId], references: [id])
   ownerId  String?
@@ -27,19 +28,21 @@ model Pappy {
 }
 
 model Photosession {
-  id       String   @id @default(uuid())
-  timeSlot DateTime
-  user     User?    @relation(fields: [userId], references: [id])
-  userId   String?
+  id         String   @id @default(uuid())
+  date       DateTime
+  user       User?    @relation(fields: [userId], references: [id])
+  userId     String?
+  guestName  String
+  guestPhone String
+  guestEmail String
 }
-
 model Litter {
   id             String  @id @default(uuid())
   femaleParent   Corgi   @relation("FemaleParent", fields: [femaleParentId], references: [id])
   femaleParentId String
   maleParent     Corgi   @relation("MaleParent", fields: [maleParentId], references: [id])
   maleParentId   String
-  puppies        Pappy[]
+  puppies        Puppy[]
 }
 
 model Corgi {
