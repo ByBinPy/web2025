@@ -23,11 +23,11 @@ import { UserService } from './user/user.service';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql',
-      context: ({ req }) => ({ req }),
+      context: ({ req, res }) => ({ req, res }),
       playground: true,
     }),
   ],
-  controllers: [AppController, PhotosessionController, UserController],
+  controllers: [AppController],
   providers: [
     PrismaService,
     UserResolver,

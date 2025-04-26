@@ -67,6 +67,6 @@ export class UserController {
   }
   @Delete()
   remove(@Session() session: Record<string, any>) {
-    return this.userService.remove(+session.userId);
+    return this.userService.remove(session.userId);
   }
 }

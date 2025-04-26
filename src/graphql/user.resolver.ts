@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Args, Context } from '@nestjs/graphql';
+import { Resolver, Mutation, Args, Context, Query } from '@nestjs/graphql';
 import { ConflictException, NotFoundException, UnauthorizedException, UseInterceptors } from '@nestjs/common';
 import { ElapsedTimeInterceptor } from '../interceptors/elapsed-time.interceptor';
 import { User } from './dto/user.objects';
@@ -12,24 +12,21 @@ export class UserResolver {
   private readonly userService: UserService = new UserService();
 
   @Mutation(() => User)
-  @Mutation(() => User)
-  async register(@Args('input') input: CreateUserDto) {
+  async register(
+    @Args('input') input: CreateUserDto,
+  ): Promise<User> {
     const existingUser = await this.userService.getByEmail(input.email);
     if (existingUser) {
       throw new ConflictException('Пользователь с таким email уже существует');
     }
 
-    return this.userService.create({
-      name: input.name,
-      email: input.email,
-      password: input.password,
-    });
+    return this.userService.create(input);
   }
 
 
-  @Mutation(() => User)
+  @Query(() => User, { description: 'Вход пользователя' })
   async login(
-    @Args('input') input: LoginUserDto,
+    @Args('input', { type: () => LoginUserDto }) input: LoginUserDto,
     @Context() context: { req: { session: Record<string, any> } },
   ) {
     const user = await this.userService.getByEmail(input.email);
@@ -48,7 +45,7 @@ export class UserResolver {
     return user;
   }
 
-  @Mutation(() => Boolean)
+  @Query(() => Boolean, { description: 'Удаление пользователя' })
   async deleteUser(@Context() context: { req: { session: Record<string, any> } }) {
     const userId = context.req.session.userId;
     if (!userId) {
@@ -58,5 +55,4 @@ export class UserResolver {
     this.userService.remove(userId);
     context.req.session.destroy();
     return true;
-  }
-}
+  }}
