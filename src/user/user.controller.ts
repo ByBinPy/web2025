@@ -4,13 +4,15 @@ import {
   Body,
   Delete,
   NotFoundException,
-  UnauthorizedException, Res, Session, ConflictException,
+  UnauthorizedException, Res, Session, ConflictException, UseInterceptors,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
+import { ElapsedTimeInterceptor } from '../interceptors/elapsed-time.interceptor';
 
 @Controller('users')
+@UseInterceptors(ElapsedTimeInterceptor)
 export class UserController {
 
   private readonly userService: UserService = new UserService();

@@ -7,12 +7,13 @@ import {
   Param,
   Patch,
   Post,
-  Session, Sse,
+  Session, Sse, UseInterceptors,
 } from '@nestjs/common';
 import { CreatePhotosessionDto } from './dto/create-photosession.dto';
 import { PhotosessionService } from './photosession.service';
 import { Photosession as PhotosessionModel } from '@prisma/client';
 import { interval, map, switchMap, tap } from 'rxjs';
+import { EtagInterceptor } from '../interceptors/etag.interceptor';
 
 @Controller('photosession')
 export class PhotosessionController {
@@ -61,21 +62,17 @@ export class PhotosessionController {
     });
   }
   @Get()
-  findAll(@Session() session: Record<string, any>) {
+  @UseInterceptors(EtagInterceptor)
+  findAllById(@Session() session: Record<string, any>) {
     return this.photosessionService.findAllById(session.userId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.photosessionService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
+  @Patch(':email')
+  updateDate(
+    @Param('email') id: string,
     @Body() updatePhotosessionDto: UpdatePhotosessionDto,
   ) {
-    return this.photosessionService.update(+id, updatePhotosessionDto);
+    return this.photosessionService.updateDate(id, updatePhotosessionDto);
   }
 
   @Delete(':id')

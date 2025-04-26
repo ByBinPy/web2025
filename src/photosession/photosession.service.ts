@@ -21,15 +21,22 @@ export class PhotosessionService {
     });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} photosession`;
+  updateDate(id: string, updatePhotosessionDto: UpdatePhotosessionDto) {
+    return prisma.photosession.update({
+      where: {
+        id: id
+      },
+      data: {
+        date: updatePhotosessionDto.date
+      }
+    })
   }
 
-  update(id: number, updatePhotosessionDto: UpdatePhotosessionDto) {
-    return `This action updates a #${id} photosession`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} photosession`;
+  remove(id: string) {
+   return prisma.photosession.delete({
+     where: {
+       id: id
+     }
+   })
   }
 }

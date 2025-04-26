@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
 import { LitterService } from './litter.service';
-import { LitterController } from './litter.controller';
 
 @Module({
-  controllers: [LitterController],
+  controllers: [],
   providers: [LitterService],
 })
 export class LitterModule {}
