@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const preloader = document.getElementById('preloader');
     const content = document.getElementById('content');
-    const runAppButton = document.getElementById('runAppButton'); // Кнопка для запуска
+    const runAppButton = document.getElementById('runAppButton');
 
     function showPreloader() {
         preloader.style.display = 'block';
@@ -53,6 +53,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Запускаем loadData() по нажатию на кнопку
     runAppButton.addEventListener('click', loadData);
 });

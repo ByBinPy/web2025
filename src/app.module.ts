@@ -4,33 +4,35 @@ import { PhotosessionController } from './photosession/photosession.controller';
 import { PrismaService } from './prisma.service';
 import { UserController } from './user/user.controller';
 import { CacheModule } from '@nestjs/cache-manager';
-import { UserResolver } from './user/user.resolver';
 import { UserModule } from './user/user.module';
 import { PhotosessionModule } from './photosession/photosession.module';
 import { Module } from '@nestjs/common';
-import { GraphqlModule } from './graphql/graphql.module';
+import { UserResolver } from './graphql/user.resolver';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { UserService } from './user/user.service';
 
 @Module({
   imports: [
-    GraphqlModule,
+    UserModule,
+    PhotosessionModule,
     CacheModule.register({
       ttl: 10,
       max: 100,
     }),
-    UserModule,
-    PhotosessionModule,
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      autoSchemaFile: 'schema.gql',
+      context: ({ req }) => ({ req }),
+      playground: true,
+    }),
   ],
-  controllers: [
-    AppController,
-    PhotosessionController,
-    UserController,
-  ],
+  controllers: [AppController, PhotosessionController, UserController],
   providers: [
     PhotosessionService,
     PrismaService,
     UserResolver,
+    UserService,
   ],
 })
-
-export class AppModule {
-}
+export class AppModule {}

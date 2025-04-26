@@ -25,7 +25,6 @@ export class PhotosessionController {
       switchMap(() => this.photosessionService.findAllById(session.userId)),
       map(bookings => ({
         data: bookings.map(b => {
-          // Исправленный блок
           const date = new Date(b.date);
           const timeString = date.toLocaleTimeString('ru-RU', {
             hour: '2-digit',
@@ -77,6 +76,6 @@ export class PhotosessionController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.photosessionService.remove(+id);
+    return this.photosessionService.remove(id);
   }
 }
