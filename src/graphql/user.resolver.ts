@@ -12,7 +12,9 @@ export class UserResolver {
   private readonly userService: UserService = new UserService();
 
   @Mutation(() => User)
-  async register(@Args('input', { type: () => CreateUserDto }) input: CreateUserDto) {    const existingUser = await this.userService.getByEmail(input.email);
+  @Mutation(() => User)
+  async register(@Args('input') input: CreateUserDto) {
+    const existingUser = await this.userService.getByEmail(input.email);
     if (existingUser) {
       throw new ConflictException('Пользователь с таким email уже существует');
     }

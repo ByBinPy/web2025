@@ -29,10 +29,9 @@ import { UserService } from './user/user.service';
   ],
   controllers: [AppController, PhotosessionController, UserController],
   providers: [
-    PhotosessionService,
     PrismaService,
     UserResolver,
-    UserService,
+    PhotosessionService,
   ],
 })
 export class AppModule {}
